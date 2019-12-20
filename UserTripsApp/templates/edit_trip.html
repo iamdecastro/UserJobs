@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'css/new_job.css' %}"> 
+</head>
+<body>
+    <div id = 'main'>
+        <div class = header>
+            <div class = "greet">
+                <h1>Hello, {{User.first_name}}! Lets edit your Trip! </h1>
+            </div>
+            <div class = navigation>                
+                <a href = '/log_out'>Logout</a>
+            </div>
+        </div>
+        
+        <div id = "Form">
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li class = 'error' {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+            <form id = 'NewTripForm'action = '/Trips/Update/{{Trip.id}}' method = 'POST'>
+                <div class = 'content'>
+                    {% csrf_token %}
+                    <div class = 'labels'>
+                        <label>Destination:</label>
+                        <label>Start Date:</label>
+                        <label>End Date:</label>
+                        <label>Plan:</label>            
+                    </div>
+                    <div class = 'input'>
+                        <input type = 'text' name = 'destination' value = '{{Trip.destination}}'>
+                        <input type = 'date' name = 'start_date' value = '{{Trip.start_date|date:"Y-m-d" }}'>
+                        <input type = 'date' name = 'end_date' value = '{{Trip.end_date|date:"Y-m-d" }}'>
+                        <input type = 'text' name = 'plan' value = '{{Trip.plan}}'>
+                    </div>
+                </div>
+                <div class = 'footer'>
+                    
+                        <button type = 'submit' form = 'cancel'>Cancel</button>
+                    
+                    <button type = 'submit' form = 'NewTripForm'>Update</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+    <form id = 'cancel' action = '/dashboard'>
+    </form>
+</body>
+</html>

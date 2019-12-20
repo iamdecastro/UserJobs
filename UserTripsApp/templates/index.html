@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'css/index.css' %}"> 
+</head>
+<body>
+    <div id = 'main'>
+        <div id = "Form">
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li class = 'error' {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+        {% endif %}
+            <div  class = 'header'>
+                <h1>Register</h1>
+            </div>
+            <form id = 'registerForm'action = '/register' method = 'POST'>
+                <div class = 'content'>
+                    {% csrf_token %}
+                    <div class = 'labels'>
+                        <label>First Name:</label>
+                        <label>Last Name:</label>
+                        <label>Email:</label>
+                        <label>Password:</label>
+                        <label>Confirm PW:</label>                  
+                    </div>
+                    <div class = 'input'>
+                        <input type = 'text' name = 'first_name'>
+                        <input type = 'text' name = 'last_name'>
+                        <input type = 'text' name = 'email'>
+                        <input type = 'password' name = 'password'>
+                        <input type = 'password' name = 'verf_password'>
+                    </div>
+                </div>
+                <div class = 'footer'>
+                    <button type = 'submit' form = 'registerForm'>Register</button>
+                </div>
+            </form> 
+        </div>
+            <div id = "Form">
+                <div  class = 'header'>
+                    <h1>Login</h1>
+                </div>
+                <form id = 'loginForm'action = '/login' method = 'POST'>
+                    {% csrf_token %}
+                    <div class = 'content'>
+                        <div class = 'labels'>
+                            <label>Email:</label>
+                            <label>Password:</label>     
+                        </div>
+                        <div class = 'input'>
+        
+                            <input type = 'text' name = 'email'>
+                            <input type = 'password' name = 'password'>
+                        </div>
+                    </div>
+                    <div class = 'footer'>
+                        <button type = 'submit' form = 'loginForm'>Login</button>
+                    </div>
+                </form> 
+            </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'css/view_job.css' %}"> 
+</head>
+<body>
+    <div id = 'main'>
+        <div class = header>
+            <div class = "greet">
+                <h1>Hello, {{User.first_name}}! Read about this Trip! </h1>
+            </div>
+            <div class = navigation>
+                <a href = '/dashboard'>dashboard</a>                
+                <a href = '/log_out'>Logout</a>
+            </div>
+        </div>
+        <div id = "Content">
+            <div id = "contentHeader"> {{Trip.destination}}</div>
+            <div id = "contentBody">
+                <p>Plan: {{Trip.plan}}</p>
+                <p>Start Date: {{Trip.start_date}}</p>
+                <p>End Date:{{Trip.end_date}}</p>
+                <p>Created on:{{Trip.created_at}}</p>
+                <p>Last Updated:{{Trip.updated_at}}</p>
+                <p>Created By:{{Trip.created_by.first_name}}</p>
+            </div>
+            <div id = 'contentFooter'>
+                <p>
+                    People who joined the trip:
+                    {% for participant in participants %}
+                        {{participant.first_name}}
+                    {% endfor %}
+
+
+                </p>
+            
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

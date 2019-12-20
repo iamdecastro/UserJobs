@@ -1,0 +1,31 @@
+#main{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#Form{
+    display:flex;
+    flex-direction: column;
+}
+.content{
+    display:flex;
+    flex-direction: row;
+    
+}
+.labels{
+    display:flex;
+    flex-direction: column;
+}
+.input{
+    display:flex;
+    flex-direction: column;
+}
+.error{
+    color:red;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+th{
+    background-color: grey;
+}

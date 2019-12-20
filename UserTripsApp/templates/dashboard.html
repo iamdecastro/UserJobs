@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> 
+</head>
+<body>
+    <div class = 'main'>
+        <div class = 'header'>
+            <div class = "greet"><h1>Hello, {{User.first_name}} {{User.last_name}}</h1></div>
+            <div id = "navigation">
+                <a href = '/log_out'>Logout</a>
+                <form action="/Trips/New">
+                    <button type="submit">New Job</button>
+                </form>
+            </div>
+        </div>
+        <div class = 'table'>
+            <div class = tableHeader>Your Jobs</div>
+            <table>
+                <tr>
+                    <th>Destination</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Plan</th>
+                    <th>Actions</th>
+                </tr>
+                {%for trip in user_trips%}
+                <tr>
+                    <td> <a href = '/Trips/View/{{trip.id}}'>{{trip.destination}}</a> </td>
+                    <td>{{ trip.start_date }}</td>
+                    <td>{{ trip.end_date }}</td>
+                    <td>{{ trip.plan }}</td>
+                    <td>
+                        <a href = '/Trips/Cancel/{{trip.id}}'>Cancel</a>
+                        {% if trip.created_by.id == User.id %}
+                            <a href = '/Trips/Edit/{{trip.id}}'>Edit</a>
+                            <a href = '/Trips/Remove/{{trip.id}}'>Remove</a>
+                        {%endif%}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+        <div class = 'table'>
+            <div class = tableHeader>Everyone's Jobs</div>
+            <table>
+                <tr>
+                    <th>Destination</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Plan</th>
+                    <th>Actions</th>
+                </tr>
+                {%for trip in other_trips%}
+                    {% if trip.id not in user_trips%}
+                <tr>
+                    <td> <a href = '/Trips/View/{{trip.id}}'>{{trip.destination}}</a> </td>
+                    <td>{{ trip.start_date }}</td>
+                    <td>{{ trip.end_date }}</td>
+                    <td>{{ trip.plan }}</td>
+                    <td>
+                        <a href = '/Trips/Join/{{trip.id}}'>Join</a>
+                        {% if trip.created_by.id == User.id %}
+                            <a href = '/Trips/Edit/{{trip.id}}'>Edit</a>
+                            <a href = '/Trips/Remove/{{trip.id}}'>Remove</a>
+                        {%endif%}
+                    </td>
+                </tr>
+                    {%endif%}
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
